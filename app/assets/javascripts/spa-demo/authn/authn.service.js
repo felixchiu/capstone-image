@@ -16,6 +16,8 @@
     service.getCurrentUserId = getCurrentUserId;
     service.login = login;
     service.logout = logout;
+    service.updateProfileImage = updateProfileImage;
+    service.getCurrentUserImage = getCurrentUserImage;
 
     activate();
     return;
@@ -39,9 +41,13 @@
     function getCurrentUserId() {
       return service.user!=null ? service.user.id : null;
     }
+    function getCurrentUserImage() {
+      return service.user!=null ? service.user.image_id : null;
+    }
     function getCurrentUser() {
       return service.user;
     }
+
     function login(credentials) {
       console.log("login", credentials.email);
       var result=$auth.submitLogin({
@@ -57,11 +63,11 @@
           deferred.resolve(response);
         },
         function(response){
-          var formatted_errors = { errors: { 
-            full_messages: response.errors 
+          var formatted_errors = { errors: {
+            full_messages: response.errors
             }
           };
-          console.log("login failure", response);            
+          console.log("login failure", response);
           deferred.reject(formatted_errors);
         });
 
@@ -79,9 +85,22 @@
         function(response){
           service.user = null;
           console.log("logout failure", response);
-          alert(response.status + ":" + response.statusText);            
+          alert(response.status + ":" + response.statusText);
         });
       return result;
+    }
+
+    function updateProfileImage(userprofile){
+         var result=$auth.updateAccount(userprofile);
+        // result.then(
+        //   function(response){
+        //     console.log("update user complete", response);
+        //   },
+        //   function(response){
+        //     console.log("update user failure", response);
+        //     alert(response.status + ":" + response.statusText);
+        //   });
+        return result;
     }
   }
 })();

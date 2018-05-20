@@ -22,7 +22,9 @@
   function checkEmptyPayload(data) {
     if (!data['caption']) {
       data['caption']=null;
-    } 
+    }
     return angular.toJson(data);
-  }    
+  }
+
+
 })();

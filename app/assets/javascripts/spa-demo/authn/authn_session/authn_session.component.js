@@ -12,7 +12,7 @@
   templateUrl.$inject = ["spa-demo.config.APP_CONFIG"];
   function templateUrl(APP_CONFIG) {
     return APP_CONFIG.authn_session_html;
-  }    
+  }
 
   AuthnSessionController.$inject = ["$scope","spa-demo.authn.Authn"];
   function AuthnSessionController($scope, Authn) {
@@ -21,7 +21,9 @@
     vm.login = login;
     vm.logout = logout;
     vm.getCurrentUser = Authn.getCurrentUser;
-    vm.getCurrentUserName = Authn.getCurrentUserName;    
+    vm.getCurrentUserName = Authn.getCurrentUserName;
+    vm.getCurrentUserImage = Authn.getCurrentUserImage;
+    vm.getProfileImageUrl = getProfileImageUrl;
 
     vm.$onInit = function() {
       console.log("AuthnSessionController",$scope);
@@ -48,7 +50,16 @@
         function(){
           vm.dropdown.removeClass("open");
         });
-    }    
+    }
+    function getProfileImageUrl(){
+      var imageid = Authn.getCurrentUserImage();
+      if (imageid) {
+        return "/api/images/"+ imageid +"/content?width=50";
+      } else {
+        return "#";
+      }
+
+    }
 
   }
 })();
