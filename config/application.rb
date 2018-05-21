@@ -31,17 +31,17 @@ module Myapp
 
     Mongoid.load!('./config/mongoid.yml')
     #which default ORM are we using with scaffold
-    #add  --orm mongoid, or active_record 
+    #add  --orm mongoid, or active_record
     #    to rails generate cmd line to be specific
     config.generators {|g| g.orm :active_record}
     #config.generators {|g| g.orm :mongoid}
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        origins /https:\/\/\w+\.github\.io/
-
-        resource '*', 
-          :headers => :any, 
+        #origins '/https:\/\/\w+\.github\.io/'
+        origins '*'
+        resource '*',
+          :headers => :any,
           :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
           :methods => [:get, :post, :put, :delete, :options]
       end
