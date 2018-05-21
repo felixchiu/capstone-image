@@ -7,7 +7,7 @@
       templateUrl: templateUrl,
       controller: ImageLoaderController,
       bindings: {
-        resultDataUri: "@"        
+        resultDataUri: "&"        
       },
       transclude: true
     });
