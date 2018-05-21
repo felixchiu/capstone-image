@@ -9,6 +9,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
+require "exifr/jpeg"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -38,8 +39,7 @@ module Myapp
 
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
-        #origins '/https:\/\/\w+\.github\.io/'
-        origins '*'
+        origins '/https:\/\/\w+\.github\.io/'
         resource '*',
           :headers => :any,
           :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
